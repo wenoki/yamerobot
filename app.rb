@@ -49,6 +49,7 @@ EventMachine.run do
 
     # unfollow
     to_unfollow.each do |id|
+      next if id == "buzztter"
       log.info "unfollowing #{id}"
       log.info "done." if rest.unfollow id
     end
