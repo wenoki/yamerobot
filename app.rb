@@ -63,6 +63,8 @@ EventMachine.run do
     log.info "status from @#{status.from_user}: #{status.text}"
     if status.text.match(/\AHOT: (\S+)/) && status.from_user == "buzztter"
       tweet = rest.update "#{$1}やめろ"
+    elsif status.retweet? && status[:retweeted_status][:user][:screen_name] == "yamerobot"
+      tweet = rest.update("@#{status.user.screen_name} RTやめろ", in_reply_to_status_id: status.id)
     elsif status.text.include? "@yamerobot"
       tweet = rest.update("@#{status.user.screen_name} リプライやめろ", in_reply_to_status_id: status.id)
     end
