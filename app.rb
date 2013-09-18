@@ -61,8 +61,7 @@ EventMachine.run do
 
   stream.userstream do |status|
     log.info "status from @#{status.from_user}: #{status.text}"
-    next unless status.from_user == "buzztter"
-    if status.text.match /\AHOT: (\S+)/
+    if status.text.match /\AHOT: (\S+)/ && status.from_user == "buzztter"
       tweet = rest.update "#{$1}やめろ"
     elsif status.text.include? "@yamerobot"
       tweet = rest.update("@#{status.user.screen_name} リプライやめろ", in_reply_to_status_id: status.id)
